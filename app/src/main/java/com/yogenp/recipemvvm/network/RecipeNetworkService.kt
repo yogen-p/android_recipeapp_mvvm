@@ -1,6 +1,6 @@
 package com.yogenp.recipemvvm.network
 
-import com.yogenp.recipemvvm.network.model.RecipeNetworkEntity
+import com.yogenp.recipemvvm.network.model.RecipeDTO
 import com.yogenp.recipemvvm.network.responses.RecipeSearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -19,5 +19,5 @@ interface RecipeNetworkService {
     suspend fun getById(
         @Header("Authorization") token: String,
         @Query("id") id: Int
-    ): RecipeNetworkEntity
+    ): RecipeDTO
 }

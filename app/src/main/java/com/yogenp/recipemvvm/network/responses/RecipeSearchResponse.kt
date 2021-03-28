@@ -1,12 +1,12 @@
 package com.yogenp.recipemvvm.network.responses
 
 import com.google.gson.annotations.SerializedName
-import com.yogenp.recipemvvm.network.model.RecipeNetworkEntity
+import com.yogenp.recipemvvm.network.model.RecipeDTO
 
-class RecipeSearchResponse(
+data class RecipeSearchResponse(
     @SerializedName("count")
     var count: Int,
 
     @SerializedName("results")
-    var recipes: List<RecipeNetworkEntity>,
+    var recipes: List<RecipeDTO>,
 )
