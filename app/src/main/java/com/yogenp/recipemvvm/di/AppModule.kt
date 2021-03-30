@@ -19,10 +19,4 @@ object AppModule {
         return app as BaseApplication
     }
 
-    @Singleton
-    @Provides
-    fun provideRandomString(): String{
-        return "Hello Hilt DI"
-    }
-
 }

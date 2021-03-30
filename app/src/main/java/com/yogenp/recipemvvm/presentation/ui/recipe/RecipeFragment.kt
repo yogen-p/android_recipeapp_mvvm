@@ -26,7 +26,7 @@ class RecipeFragment : Fragment() {
             setContent {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text = "Recipe List",
+                        text = "Recipe Details",
                         fontSize = 21.sp
                     )
                 }
