@@ -1,6 +1,7 @@
 package com.yogenp.recipemvvm.presentation.ui.recipe_list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,13 +25,6 @@ class RecipeListFragment : Fragment() {
 
     private val viewModel: RecipeListViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        println("Fragment: ${viewModel.getRepo()}")
-        println("Fragment: ${viewModel.getToken()}")
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,6 +33,13 @@ class RecipeListFragment : Fragment() {
 
         return ComposeView(requireContext()).apply {
             setContent {
+
+                val recipes = viewModel.recipes.value
+                for (recipe in recipes){
+                    Log.d("AppDebug", "onCreateView: ${recipe.title}")
+                }
+
+
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
                         text = "Recipe List",
