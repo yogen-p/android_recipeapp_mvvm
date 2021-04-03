@@ -1,5 +1,6 @@
 package com.yogenp.recipemvvm.presentation.ui.recipe_list
 
+import android.app.DownloadManager
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -20,8 +21,13 @@ constructor(
 ): ViewModel(){
 
     val recipes: MutableState<List<Recipe>> = mutableStateOf(listOf())
+    val query = mutableStateOf("Noodles")
 
     init {
+        newSearch()
+    }
+
+    private fun newSearch(){
         viewModelScope.launch {
             val result = repository.search(
                 token = token,
@@ -30,5 +36,9 @@ constructor(
             )
             recipes.value = result
         }
+    }
+
+    fun onQueryChanged(query: String){
+        this.query.value = query
     }
 }

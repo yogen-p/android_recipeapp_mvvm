@@ -1,4 +1,4 @@
-package com.yogenp.recipemvvm.presentation.ui
+package com.yogenp.recipemvvm.presentation
 
 import android.os.Bundle
 import android.util.Log

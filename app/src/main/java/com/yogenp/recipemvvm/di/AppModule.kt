@@ -1,7 +1,7 @@
 package com.yogenp.recipemvvm.di
 
 import android.content.Context
-import com.yogenp.recipemvvm.presentation.ui.BaseApplication
+import com.yogenp.recipemvvm.presentation.BaseApplication
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
