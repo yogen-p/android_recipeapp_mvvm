@@ -1,6 +1,5 @@
 package com.yogenp.recipemvvm.presentation.ui.recipe_list
 
-import android.app.DownloadManager
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -8,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.yogenp.recipemvvm.domain.model.Recipe
 import com.yogenp.recipemvvm.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
@@ -24,6 +24,7 @@ constructor(
     val query = mutableStateOf("")
     val selectedCategory: MutableState<FoodCategory?> = mutableStateOf(null)
     var categoryScrollPosition: Int = 0
+    val loading = mutableStateOf(false)
 
     init {
         newSearch()
@@ -31,12 +32,30 @@ constructor(
 
     fun newSearch(){
         viewModelScope.launch {
+            loading.value = true
+            delay(2000)
+
+            resetSearchState()
+
             val result = repository.search(
                 token = token,
                 page = 1,
                 query = query.value
             )
             recipes.value = result
+
+            loading.value = false
+        }
+    }
+
+    private fun clearSelectedCategory(){
+        selectedCategory.value = null
+    }
+
+    private fun resetSearchState(){
+        recipes.value = listOf()
+        if (selectedCategory.value?.value != query.value){
+            clearSelectedCategory()
         }
     }
 

@@ -21,7 +21,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.lifecycle.lifecycleScope
 import com.yogenp.recipemvvm.presentation.ui.recipe_list.FoodCategory
 import com.yogenp.recipemvvm.presentation.ui.recipe_list.getAllFoodCategories
 import kotlinx.coroutines.launch
