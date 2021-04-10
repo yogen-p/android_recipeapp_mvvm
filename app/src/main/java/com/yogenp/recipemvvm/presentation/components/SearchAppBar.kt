@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -74,21 +75,18 @@ fun SearchAppBar(
                 )
             }
 
-            val scrollState = rememberScrollState()
+            val scrollState = rememberLazyListState()
             LazyRow(modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 8.dp, bottom = 8.dp)
-                .horizontalScroll(scrollState),
+                .padding(start = 8.dp, bottom = 8.dp),
+                state = scrollState
             ) {
-                scope.launch {
-                    scrollState.scrollTo(scrollPosition)
-                }
                 itemsIndexed(items = getAllFoodCategories()) { _, category ->
                     FoodCategoryChip(
                         category = category.value,
                         isSelected = selectedCategory == category,
                         onSelectedCategoryChanged = {
-                            onChangeCategoryScrollPosition(scrollState.value)
+//                            onChangeCategoryScrollPosition(scrollState.value)
                             onSelectedCategoryChanged(it)
                         },
                         onExecuteSearch = {
