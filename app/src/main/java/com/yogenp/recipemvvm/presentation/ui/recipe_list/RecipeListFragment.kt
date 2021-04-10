@@ -31,6 +31,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.yogenp.recipemvvm.presentation.components.FoodCategoryChip
 import com.yogenp.recipemvvm.presentation.components.RecipeCard
+import com.yogenp.recipemvvm.presentation.components.SearchAppBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -55,65 +56,16 @@ class RecipeListFragment : Fragment() {
 
                 Column {
 
-                    Surface(
-                        modifier = Modifier.fillMaxWidth(),
-                        elevation = 8.dp,
-                        color = Color.White
-                    ) {
-                        Column {
-                            Row(
-                                modifier = Modifier.fillMaxWidth()
-                            ) {
-                                TextField(
-                                    modifier = Modifier
-                                        .fillMaxWidth(0.9f)
-                                        .padding(8.dp),
-                                    value = query,
-                                    onValueChange = {
-                                        viewModel.onQueryChanged(it)
-                                    },
-                                    label = { Text(text = "Search") },
-                                    keyboardOptions = KeyboardOptions(
-                                        keyboardType = KeyboardType.Text,
-                                        imeAction = ImeAction.Search
-                                    ),
-                                    keyboardActions = KeyboardActions(onSearch = {
-                                        viewModel.newSearch()
-                                    }),
-                                    leadingIcon = {
-                                        Icon(
-                                            imageVector = Icons.Filled.Search,
-                                            contentDescription = "Search"
-                                        )
-                                    },
-                                    textStyle = TextStyle(color = Color.Black),
-                                    colors = TextFieldDefaults.textFieldColors(
-                                        backgroundColor = Color.White
-                                    )
-                                )
-                            }
-
-                            val scrollState = rememberScrollState()
-                            LazyRow(modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 8.dp, bottom = 8.dp)
-                                .horizontalScroll(scrollState),
-                            ) {
-                                lifecycleScope.launch { scrollState.scrollTo(viewModel.categoryScrollPosition) }
-                                itemsIndexed(items = getAllFoodCategories()) { _, category ->
-                                    FoodCategoryChip(
-                                        category = category.value,
-                                        isSelected = selectedCategory == category,
-                                        onSelectedCategoryChanged = {
-                                            viewModel.onChangeCategoryScrollPosition(scrollState.value)
-                                            viewModel.onSelectedCategoryChanged(it)
-                                        },
-                                        onExecuteSearch = viewModel::newSearch
-                                    )
-                                }
-                            }
-                        }
-                    }
+                    SearchAppBar(
+                        query = query,
+                        onQueryChanged = viewModel::onQueryChanged,
+                        onExecuteSearch = viewModel::newSearch,
+                        scope = lifecycleScope,
+                        scrollPosition = viewModel.categoryScrollPosition,
+                        selectedCategory = selectedCategory,
+                        onSelectedCategoryChanged = viewModel::onSelectedCategoryChanged,
+                        onChangeCategoryScrollPosition = viewModel::onChangeCategoryScrollPosition
+                    )
 
                     LazyColumn {
                         itemsIndexed(
