@@ -1,6 +1,10 @@
 # android_recipeapp_mvvm
 Android Recipe App with MVVM Architecture
 
+### Snapshot
+
+![App snapshot](/snapshot.png)
+
 ### Dependencies
 
     implementation "androidx.compose.ui:ui:1.0.0-beta02"
