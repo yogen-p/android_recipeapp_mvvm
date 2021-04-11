@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.yogenp.recipemvvm.presentation.components.CircularIndefiniteProgressBar
 import com.yogenp.recipemvvm.presentation.components.RecipeCard
 import com.yogenp.recipemvvm.presentation.components.SearchAppBar
@@ -45,11 +44,10 @@ class RecipeListFragment : Fragment() {
                         query = query,
                         onQueryChanged = viewModel::onQueryChanged,
                         onExecuteSearch = viewModel::newSearch,
-                        scope = lifecycleScope,
-                        scrollPosition = viewModel.categoryScrollPosition,
                         selectedCategory = selectedCategory,
                         onSelectedCategoryChanged = viewModel::onSelectedCategoryChanged,
-                        onChangeCategoryScrollPosition = viewModel::onChangeCategoryScrollPosition
+                        onChangeCategoryScrollPosition = viewModel::onChangeCategoryScrollPosition,
+                        categoryScrollPosition = viewModel.categoryScrollPosition
                     )
 
                     Box(

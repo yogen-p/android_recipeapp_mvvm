@@ -13,6 +13,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -21,6 +22,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.yogenp.recipemvvm.presentation.ui.recipe_list.FoodCategory
 import com.yogenp.recipemvvm.presentation.ui.recipe_list.getAllFoodCategories
+import kotlinx.coroutines.launch
 
 @Composable
 fun SearchAppBar(
@@ -29,6 +31,8 @@ fun SearchAppBar(
     onExecuteSearch: () -> Unit,
     selectedCategory: FoodCategory?,
     onSelectedCategoryChanged: (String) -> Unit,
+    onChangeCategoryScrollPosition: (Int) -> Unit,
+    categoryScrollPosition: Int
 ){
     Surface(
         modifier = Modifier.fillMaxWidth(),
@@ -69,17 +73,19 @@ fun SearchAppBar(
             }
 
             val scrollState = rememberLazyListState()
+            val scope = rememberCoroutineScope()
             LazyRow(modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 8.dp, bottom = 8.dp),
                 state = scrollState
             ) {
-                itemsIndexed(items = getAllFoodCategories()) { _, category ->
+                scope.launch { scrollState.scrollToItem(categoryScrollPosition) }
+                itemsIndexed(items = getAllFoodCategories()) { index, category ->
                     FoodCategoryChip(
                         category = category.value,
                         isSelected = selectedCategory == category,
                         onSelectedCategoryChanged = {
-//                            onChangeCategoryScrollPosition(scrollState.value)
+                            onChangeCategoryScrollPosition(index)
                             onSelectedCategoryChanged(it)
                         },
                         onExecuteSearch = {

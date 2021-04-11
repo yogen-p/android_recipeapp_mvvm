@@ -6,6 +6,8 @@ enum class FoodCategory(val value: String) {
     SOUP("Soup"),
     DESSERT("Dessert"),
     VEGETARIAN("Vegetarian"),
+    POTATO("Potato"),
+    CARROT("Carrot"),
     MILK("Milk"),
     VEGAN("Vegan"),
     PIZZA("Pizza"),
@@ -13,7 +15,7 @@ enum class FoodCategory(val value: String) {
 }
 
 fun getAllFoodCategories(): List<FoodCategory>{
-    return listOf(SOUP, DESSERT, VEGETARIAN, MILK, VEGAN, PIZZA, DONUT)
+    return listOf(SOUP, DESSERT, VEGETARIAN, POTATO, CARROT, MILK, VEGAN, PIZZA, DONUT)
 }
 
 fun getFoodCategory(value: String): FoodCategory? {
