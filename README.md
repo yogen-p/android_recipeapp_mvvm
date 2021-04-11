@@ -1,5 +1,9 @@
 # android_recipeapp_mvvm
-Android Recipe App with MVVM Architecture
+Android Recipe App with MVVM Architecture and Jetpack Compose.
+
+### Snapshot
+
+![App snapshot](/snapshot.png)
 
 ### Dependencies
 
@@ -12,6 +16,7 @@ Android Recipe App with MVVM Architecture
     implementation "androidx.compose.material:material-icons-extended:1.0.0-beta02"
 
 ### References
+1. https://food2fork.ca/ - API Ref
 1. https://github.com/android/compose-samples
 1. https://developer.android.com/jetpack/compose
 1. https://developer.android.com/jetpack/compose/state
